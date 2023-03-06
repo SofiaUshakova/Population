@@ -30,29 +30,12 @@ public class Main {
         System.out.println(streamRecruit);
 
         List<Person> steamWorkers = persons.stream()
-//сначала я пробовала написать вот так, но такое, естественно, отфильтрует ничего.
-//                .filter(person -> person.getSex().equals(Sex.WOMAN) &&
-//                        person.getAge() > 18 && person.getAge() < 60 &&
-//                        person.getEducation().equals(Education.HIGHER))
-//                .filter(person -> person.getSex().equals(Sex.MAN) &&
-//                        person.getAge() > 18 && person.getAge() < 65 &&
-//                        person.getEducation().equals(Education.HIGHER))
-//Следующий участок кода не работает.
-                .filter(person -> {
-                         for (Person person1 : persons) {
-                             if (person1.getSex().equals(Sex.WOMAN) && person1.getAge() > 18 && person1.getAge() < 60 &&
-                        person1.getEducation().equals(Education.HIGHER)){
-                                 return true;
-                             }else if (person1.getSex().equals(Sex.MAN)&& person1.getAge() > 18 && person1.getAge() < 65 &&
-                        person1.getEducation().equals(Education.HIGHER)){
-                                 return true;
-                             };
-                         }return false;
-                })
+                .filter(person -> ((person.getSex().equals(Sex.WOMAN) && person.getAge() < 60) ||
+                        (person.getSex().equals(Sex.MAN) && person.getAge() < 65)) && person.getAge() > 18 &&
+                        person.getEducation().equals(Education.HIGHER))
                 .sorted(Comparator.comparing(person -> person.getFamily()))
                 .collect(Collectors.toList());
         System.out.println(steamWorkers);
-
 
 
     }
